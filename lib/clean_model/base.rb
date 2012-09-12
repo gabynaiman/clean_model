@@ -2,11 +2,10 @@ module CleanModel
   module Base
 
     def self.included(base)
-      base.send :extend, ActiveModel::Translation
-      base.send :include, ActiveModel::Validations
-
       base.send :extend, ClassMethods
       base.send :include, InstanceMethods
+      base.send :extend, ActiveModel::Translation
+      base.send :include, ActiveModel::Validations
     end
 
     module ClassMethods
