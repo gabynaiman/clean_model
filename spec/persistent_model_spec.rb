@@ -88,8 +88,8 @@ describe CleanModel::Persistent do
     it 'Destroy persisted model' do
       post = Post.new id: 1, subject: 'Title', content: 'Some text'
 
-      post.stub(:destroy) { true }
-      post.should_receive :destroy
+      post.stub(:delete) { true }
+      post.should_receive :delete
 
       post.destroy.should be_true
     end

@@ -53,7 +53,7 @@ module CleanModel
       end
 
       def destroy
-        raise UndefinedPersistenceMethod.new(self.class, :destroy)
+        delete
       end
 
       private
@@ -64,6 +64,10 @@ module CleanModel
 
       def update
         raise UndefinedPersistenceMethod.new(self.class, :update)
+      end
+
+      def delete
+        raise UndefinedPersistenceMethod.new(self.class, :delete)
       end
 
     end

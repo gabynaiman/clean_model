@@ -7,11 +7,9 @@ Gem::Specification.new do |s|
   s.version     = CleanModel::VERSION
   s.authors     = ['Gabriel Naiman']
   s.email       = ['gabynaiman@gmail.com']
-  s.homepage    = ''
+  s.homepage    = 'https://github.com/gabynaiman/clean_model'
   s.summary     = 'Extensions for ActiveModel to implement multiple types of models'
   s.description = 'Extensions for ActiveModel to implement multiple types of models'
-
-  s.rubyforge_project = "clean_model"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
@@ -20,5 +18,8 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'activesupport', '>= 3.0.0'
   s.add_dependency 'activemodel', '>= 3.0.0'
+  s.add_dependency 'web_client'
+
   s.add_development_dependency 'rspec'
+  s.add_development_dependency 'webmock'
 end

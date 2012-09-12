@@ -1,5 +1,7 @@
 require 'active_model'
 require 'active_support/all'
+require 'web_client'
+require 'json'
 
 require 'clean_model/version'
 require 'clean_model/attribute'
