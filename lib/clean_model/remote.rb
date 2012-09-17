@@ -20,7 +20,7 @@ module CleanModel
       def http_get(path, data={})
         begin
           response = http.get(path, data)
-          if response.is_a?(Net::HTTPOK)
+          if response.is_a?(Net::HTTPSuccess)
             block_given? ? yield(response) : response
           else
             raise InvalidResponse.new(response)
