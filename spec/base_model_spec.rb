@@ -97,7 +97,27 @@ describe CleanModel::Base do
       factory = Factory.new do |f|
         f.cars = [
             {brand: 'Honda', model: 'Civic'},
-            {brand: 'Toyota', model: 'Corolla'},
+            {brand: 'Toyota', model: 'Corolla'}
+        ]
+      end
+
+      factory.cars.should be_a Array
+      factory.cars.should have(2).items
+
+      factory.cars[0].should be_a Car
+      factory.cars[0].brand.should eq 'Honda'
+      factory.cars[0].model.should eq 'Civic'
+
+      factory.cars[1].should be_a Car
+      factory.cars[1].brand.should eq 'Toyota'
+      factory.cars[1].model.should eq 'Corolla'
+    end
+
+    it 'Not transform array elements when contains expected class' do
+      factory = Factory.new do |f|
+        f.cars = [
+            Car.new(brand: 'Honda', model: 'Civic'),
+            Car.new(brand: 'Toyota', model: 'Corolla')
         ]
       end
 

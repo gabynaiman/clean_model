@@ -20,9 +20,13 @@ module CleanModel
         obj
       elsif value.is_a?(Array) && collection_class.new.respond_to?(:assign_attributes)
         value.map do |v|
-          obj = collection_class.new
-          obj.assign_attributes v
-          obj
+          if v.is_a? collection_class
+            v
+          else
+            obj = collection_class.new
+            obj.assign_attributes v
+            obj
+          end
         end
       else
         value
