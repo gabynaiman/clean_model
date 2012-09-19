@@ -5,6 +5,7 @@ module BaseModels
 
     attribute :first_name
     attribute :last_name
+    attribute :nationality, default: :argentina
 
     validates_presence_of :first_name, :last_name
   end

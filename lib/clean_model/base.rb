@@ -38,6 +38,7 @@ module CleanModel
     module InstanceMethods
 
       def initialize(attributes={})
+        self.class.attributes.each { |a| a.assign_default(self) }
         if block_given?
           yield(self)
         else

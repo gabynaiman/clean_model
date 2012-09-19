@@ -43,10 +43,11 @@ describe CleanModel::Base do
     end
 
     it 'Get attributes hash' do
-      person = Person.new first_name: 'John', last_name: 'Doe'
-      person.attributes.keys.should eq [:first_name, :last_name]
+      person = Person.new first_name: 'John', last_name: 'Doe', nationality: :usa
+      person.attributes.keys.should eq [:first_name, :last_name, :nationality]
       person.attributes[:first_name].should eq 'John'
       person.attributes[:last_name].should eq 'Doe'
+      person.attributes[:nationality].should eq :usa
     end
 
   end
@@ -69,6 +70,17 @@ describe CleanModel::Base do
       engine = Engine.new
       engine.power = 130
       expect { engine.power = '130hp' }.to raise_error CleanModel::InvalidTypeAssignment
+    end
+
+  end
+
+  context 'Default values' do
+
+    it 'Verify default value' do
+      person = Person.new
+      person.first_name.should be_nil
+      person.last_name.should be_nil
+      person.nationality.should eq :argentina
     end
 
   end

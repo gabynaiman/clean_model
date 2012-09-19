@@ -18,7 +18,7 @@ module CleanModel
         obj = klass.new
         obj.assign_attributes value
         obj
-      elsif value.is_a?(Array) && collection_class.new.respond_to?(:assign_attributes)
+      elsif value.is_a?(Array) && collection_class.instance_methods.include?(:assign_attributes)
         value.map do |v|
           if v.is_a? collection_class
             v
@@ -31,6 +31,10 @@ module CleanModel
       else
         value
       end
+    end
+
+    def assign_default(model)
+      model.send("#{@name}=", @options[:default]) if @options[:default] && model.respond_to?("#{@name}=")
     end
 
     private
