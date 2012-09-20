@@ -40,6 +40,19 @@ Or install it yourself as:
 
     person.attributes -> {first_name: 'Jorge', last_name: 'Doe'}
 
+### Defaults
+
+    class Person
+      include CleanModel::Base
+
+      attribute :first_name, default: 'John'
+      attribute :last_name
+    end
+
+    person = Person.new
+    person.first_name -> 'John'
+    person.last_name  -> nil
+
 ### Active Model validations
 
     class Person
