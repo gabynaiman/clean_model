@@ -174,7 +174,7 @@ Or install it yourself as:
       def self.find(id)
         http_get "/users/#{id}.json" do |response|
           new JSON.parse(response.body)
-        emd
+        end
       end
 
       private
