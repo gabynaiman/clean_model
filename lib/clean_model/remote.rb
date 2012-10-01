@@ -19,7 +19,6 @@ module CleanModel
 
       def http_get(path, data=nil, headers={})
         begin
-          headers[:content_type] ||= 'application/json'
           response = http.get(path, data, headers)
           if response.is_a?(Net::HTTPSuccess)
             block_given? ? yield(response) : response
