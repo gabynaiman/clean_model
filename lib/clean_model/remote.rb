@@ -17,9 +17,10 @@ module CleanModel
         WebClient::Base.new(connection)
       end
 
-      def http_get(path, data={})
+      def http_get(path, data=nil, headers={})
         begin
-          response = http.get(path, data)
+          headers[:content_type] ||= 'application/json'
+          response = http.get(path, data, headers)
           if response.is_a?(Net::HTTPSuccess)
             block_given? ? yield(response) : response
           else
@@ -52,15 +53,9 @@ module CleanModel
         begin
           response = new_record? ? create : update
           if response.is_a?(Net::HTTPSuccess)
-            assign_attributes JSON.parse(response.body) if response.body
+            save_success(response)
           else
-            if response.code.to_i == 422 #:unprocessable_entity
-              JSON.parse(response.body).each do |attribute, messages|
-                messages.each { |m| errors[attribute.to_sym] << m }
-              end
-            else
-              errors[:base] = response.content_type == 'application/json' ? response.body : "#{response.code} - Unexpected error"
-            end
+            save_fail(response)
           end
         rescue WebClient::Error => ex
           errors[:base] = ex.message
@@ -79,6 +74,22 @@ module CleanModel
           errors[:base] = ex.message
         end
         errors.empty?
+      end
+
+      private
+
+      def save_success(response)
+        assign_attributes JSON.parse(response.body) if response.body
+      end
+
+      def save_fail(response)
+        if response.code.to_i == 422 #:unprocessable_entity
+          JSON.parse(response.body).each do |attribute, messages|
+            messages.each { |m| errors[attribute.to_sym] << m }
+          end
+        else
+          errors[:base] = response.content_type == 'application/json' ? response.body : "#{response.code} - Unexpected error"
+        end
       end
 
     end
