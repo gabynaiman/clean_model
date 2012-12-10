@@ -10,48 +10,18 @@ module CleanModel
     module ClassMethods
 
       def connection(connection=nil)
-        connection ? @connection = connection : @connection
-      end
-
-      def http
-        WebClient::Base.new(connection)
-      end
-
-      def http_get(path, data=nil, headers={})
-        begin
-          response = http.get(path, data, headers)
-          if response.is_a?(Net::HTTPSuccess)
-            block_given? ? yield(response) : response
-          else
-            raise InvalidResponse.new(response)
-          end
-        rescue WebClient::Error => ex
-          raise ConnectionFail.new(ex)
-        end
+        connection ? @connection = WebClient::Connection.new(connection) : @connection
       end
 
     end
 
     module InstanceMethods
 
-      def http
-        self.class.http
-      end
-
-      def http_get(path, data={}, &block)
-        self.class.http_get(path, data, &block)
-      end
-
-      def wrapped_attributes(options={})
-        exceptions = options[:except] ? [options[:except]].flatten.map(&:to_sym) : []
-        attributes.reject { |k, v| v.nil? || exceptions.include?(k) }.inject({}) { |h, (k, v)| h["#{options[:wrapper] || self.class.to_s.demodulize.underscore}[#{k}]"] = v; h }
-      end
-
       def save
         return false unless valid?
         begin
           response = new_record? ? create : update
-          if response.is_a?(Net::HTTPSuccess)
+          if response.success?
             save_success(response)
           else
             save_fail(response)
@@ -66,7 +36,7 @@ module CleanModel
         return true if new_record?
         begin
           response = delete
-          unless response.is_a?(Net::HTTPSuccess)
+          unless response.success?
             errors[:base] = response.content_type == 'application/json' ? response.body : "#{response.code} - Unexpected error"
           end
         rescue WebClient::Error => ex
@@ -76,6 +46,15 @@ module CleanModel
       end
 
       private
+
+      def connection
+        self.class.connection
+      end
+
+      def wrapped_attributes(options={})
+        exceptions = options[:except] ? [options[:except]].flatten.map(&:to_sym) : []
+        attributes.reject { |k, v| v.nil? || exceptions.include?(k) }.inject({}) { |h, (k, v)| h["#{options[:wrapper] || self.class.to_s.demodulize.underscore}[#{k}]"] = v; h }
+      end
 
       def save_success(response)
         assign_attributes JSON.parse(response.body) if response.body

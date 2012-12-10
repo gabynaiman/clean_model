@@ -172,7 +172,7 @@ Or install it yourself as:
       attribute :email
 
       def self.find(id)
-        http_get "/users/#{id}.json" do |response|
+        connection.get "/users/#{id}.json" do |response|
           new JSON.parse(response.body)
         end
       end
@@ -180,15 +180,15 @@ Or install it yourself as:
       private
 
       def create
-        http.post '/users/create.json', wrapped_attributes
+        connection.post! '/users/create.json', wrapped_attributes
       end
 
       def update
-        http.put "/users/#{id}.json", wrapped_attributes(except: :id)
+        connection.put! "/users/#{id}.json", wrapped_attributes(except: :id)
       end
 
       def delete
-        http.delete("/users/#{id}.json")
+        connection.delete!("/users/#{id}.json")
       end
     end
 

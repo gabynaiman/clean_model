@@ -15,16 +15,4 @@ module CleanModel
     end
   end
 
-  class InvalidResponse < Error
-    def initialize(response)
-      super response.content_type == 'application/json' ? response.body : "#{response.code} - Unexpected error"
-    end
-  end
-
-  class ConnectionFail < Error
-    def initialize(exception)
-      super exception.message
-    end
-  end
-
 end
