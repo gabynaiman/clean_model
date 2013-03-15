@@ -1,5 +1,7 @@
 # CleanModel
 
+[![Build Status](https://travis-ci.org/gabynaiman/clean_model.png?branch=master)](https://travis-ci.org/gabynaiman/clean_model)
+
 Extensions for ActiveModel to implement multiple types of models
 
 ## Installation
