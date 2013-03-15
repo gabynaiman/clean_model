@@ -35,7 +35,7 @@ module CleanModel
 
     def assign_default(model)
       default_value = @options[:default].is_a?(Proc) ? @options[:default].call : @options[:default]
-      model.send("#{@name}=", default_value) if default_value && model.respond_to?("#{@name}=")
+      model.send("#{@name}=", default_value) if !default_value.nil? && model.respond_to?("#{@name}=")
     end
 
     private

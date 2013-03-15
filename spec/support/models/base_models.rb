@@ -7,6 +7,7 @@ module BaseModels
     attribute :last_name
     attribute :nationality, default: :argentina
     attribute :age, default: -> { Time.now.year - 1979 }
+    attribute :married, default: false
 
     validates_presence_of :first_name, :last_name
   end

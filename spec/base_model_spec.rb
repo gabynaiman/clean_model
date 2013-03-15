@@ -43,11 +43,13 @@ describe CleanModel::Base do
     end
 
     it 'Get attributes hash' do
-      person = Person.new first_name: 'John', last_name: 'Doe', nationality: :usa
-      person.attributes.keys.should eq [:first_name, :last_name, :nationality, :age]
+      person = Person.new first_name: 'John', last_name: 'Doe', nationality: :usa, age: 42, married: true
+      person.attributes.keys.should eq [:first_name, :last_name, :nationality, :age, :married]
       person.attributes[:first_name].should eq 'John'
       person.attributes[:last_name].should eq 'Doe'
       person.attributes[:nationality].should eq :usa
+      person.attributes[:age].should eq 42
+      person.attributes[:married].should eq true
     end
 
   end
@@ -82,6 +84,7 @@ describe CleanModel::Base do
       person.last_name.should be_nil
       person.nationality.should eq :argentina
       person.age.should eq Time.now.year - 1979
+      person.married.should be false
     end
 
   end
