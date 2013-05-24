@@ -1,5 +1,6 @@
 # CleanModel
 
+[![Gem Version](https://badge.fury.io/rb/clean_model.png)](https://rubygems.org/gems/clean_model)
 [![Build Status](https://travis-ci.org/gabynaiman/clean_model.png?branch=master)](https://travis-ci.org/gabynaiman/clean_model)
 [![Coverage Status](https://coveralls.io/repos/gabynaiman/clean_model/badge.png?branch=master)](https://coveralls.io/r/gabynaiman/clean_model?branch=master)
 [![Code Climate](https://codeclimate.com/github/gabynaiman/clean_model.png)](https://codeclimate.com/github/gabynaiman/clean_model)
