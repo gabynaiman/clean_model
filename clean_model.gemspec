@@ -17,8 +17,11 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency 'activemodel', '>= 3.0.0'
-  s.add_dependency 'web_client', '~> 0.0'
+  s.add_dependency 'web_client', '0.0.5'
 
+  s.add_development_dependency "bundler", "~> 1.3"
+  s.add_development_dependency "rake"
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'webmock'
+  s.add_development_dependency "simplecov"
 end

@@ -27,6 +27,7 @@ module CleanModel
             save_fail(response)
           end
         rescue WebClient::Error => ex
+          puts ex.inspect
           errors[:base] = ex.message
         end
         errors.empty?
