@@ -1,27 +1,28 @@
 # -*- encoding: utf-8 -*-
-$:.push File.expand_path('../lib', __FILE__)
+lib = File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'clean_model/version'
 
-Gem::Specification.new do |s|
-  s.name        = 'clean_model'
-  s.version     = CleanModel::VERSION
-  s.authors     = ['Gabriel Naiman']
-  s.email       = ['gabynaiman@gmail.com']
-  s.homepage    = 'https://github.com/gabynaiman/clean_model'
-  s.summary     = 'Extensions for ActiveModel to implement multiple types of models'
-  s.description = 'Extensions for ActiveModel to implement multiple types of models'
+Gem::Specification.new do |spec|
+  spec.name        = 'clean_model'
+  spec.version     = CleanModel::VERSION
+  spec.authors     = ['Gabriel Naiman']
+  spec.email       = ['gabynaiman@gmail.com']
+  spec.homepage    = 'https://github.com/gabynaiman/clean_model'
+  spec.summary     = 'Extensions for ActiveModel to implement multiple types of models'
+  spec.description = 'Extensions for ActiveModel to implement multiple types of models'
 
-  s.files         = `git ls-files`.split('\n')
-  s.test_files    = `git ls-files -- {test,spec,features}/*`.split('\n')
-  s.executables   = `git ls-files -- bin/*`.split('\n').map{ |f| File.basename(f) }
-  s.require_paths = ['lib']
+  spec.files         = `git ls-files`.split($/)
+  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
+  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
+  spec.require_paths = ['lib']
 
-  s.add_dependency 'activemodel', '~> 3.2'
-  s.add_dependency 'web_client', '0.0.5'
+  spec.add_dependency 'activemodel', '~> 3.2'
+  spec.add_dependency 'web_client', '0.0.5'
 
-  s.add_development_dependency 'bundler', '~> 1.3'
-  s.add_development_dependency 'rake'
-  s.add_development_dependency 'rspec', '2.13.0'
-  s.add_development_dependency 'webmock'
-  s.add_development_dependency 'simplecov'
+  spec.add_development_dependency 'bundler', '~> 1.3'
+  spec.add_development_dependency 'rake'
+  spec.add_development_dependency 'rspec', '2.13.0'
+  spec.add_development_dependency 'webmock'
+  spec.add_development_dependency 'simplecov'
 end
